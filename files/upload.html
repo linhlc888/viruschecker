@@ -94,7 +94,7 @@ svg rect{
 
                 },
                 error: function (e) {
-
+                    $(".loader").hide();
                     $("#result").text(e.responseText);
                     console.log("ERROR : ", e);
                     $("#btnSubmit").prop("disabled", false);
