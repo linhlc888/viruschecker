@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"strings"
 	"sync"
@@ -52,6 +53,7 @@ func (f ScanHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			go func(file string) {
 				out, _ := ScanVirus(file)
 				resultFiles = append(resultFiles, NewResult(out))
+				os.Remove(file)
 				wg.Done()
 			}(f)
 		}
