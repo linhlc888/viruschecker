@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+
+	"github.com/dutchcoders/go-clamd"
 )
 
 var form *template.Template
@@ -24,7 +26,13 @@ func main() {
 			w.Write([]byte("Method not allowed"))
 		}
 	})
-	http.Handle("/api/v1/scan", ScanHandler(upload))
+	s := fmt.Sprintf("tcp://%s:%d", *clamdHost, *clamdPort)
+	fmt.Println("ClamAV server: " + s)
+	scanHander := ScanHandler{
+		uploadHandler: upload,
+		clamd:         clamd.NewClamd(s),
+	}
+	http.Handle("/api/v1/scan", scanHander)
 	fmt.Println("Listening on 8080")
 	http.ListenAndServe(":8080", nil)
 }
