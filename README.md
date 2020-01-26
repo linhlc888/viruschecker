@@ -1,7 +1,7 @@
 ## Scan Virus Online Tool
 This is a toy application for learning go.
 
-![Image](./mongo2es.png)
+![Image](./gui.png)
 
 ## Demo
 1. Start clamd daemon in docker container or use running daemon on same host
